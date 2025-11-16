@@ -1,10 +1,15 @@
 {
-  "version": 2,
-  "routes": [
+  "rewrites": [
     {
-      "src": "/admin",
-      "dest": "/private/index.html"
+      "source": "/admin",
+      "destination": "/private/index.html"
     },
+    {
+      "source": "/admin/",
+      "destination": "/private/index.html"
+    }
+  ],
+  "routes": [
     {
       "src": "/private/(.*)",
       "dest": "/private/$1"
