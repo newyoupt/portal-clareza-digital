@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal da Clareza Digital | New You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ecebec;
+            min-height: 100vh;
+            padding: 3rem 1rem;
+        }
+
+        .container {
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #1d1d1d;
+            margin-bottom: 0.75rem;
+        }
+
+        .header p {
+            font-size: 1.125rem;
+            color: #1d1d1d;
+            max-width: 42rem;
+            margin: 0 auto;
+        }
+
+        /* Welcome Card */
+        .welcome-card {
+            max-width: 28rem;
+            margin: 0 auto;
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border: 2px solid #96082b;
+        }
+
+        .welcome-card h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1d1d1d;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .welcome-card > p {
+            color: #1d1d1d;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #1d1d1d;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #96082b;
+            border-radius: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(150, 8, 43, 0.1);
+        }
+
+        /* Journey Container */
+        .journey-container {
+            position: relative;
+        }
+
+        .timeline {
+            position: absolute;
+            left: 2rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #b6b4af;
+        }
+
+        .step-container {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 5rem;
+        }
+
+        .step-circle {
+            position: absolute;
+            left: 0.75rem;
+            top: 1.5rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .step-circle.active {
+            background-color: #ffffff;
+            border: 3px solid #ad2569;
+            transform: scale(1.2);
+            box-shadow: 0 4px 6px rgba(150, 8, 43, 0.2);
+        }
+
+        .step-circle.completed {
+            background-color: #ad2569;
+            border: 3px solid #ad2569;
+            color: white;
+        }
+
+        .step-circle.inactive {
+            background-color: #ecebec;
+            border: 3px solid #b6b4af;
+            color: #b6b4af;
+        }
+
+        .step-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .step-card.active {
+            border: 2px solid #ad2569;
+            box-shadow: 0 4px 6px rgba(150, 8, 43, 0.1);
+        }
+
+        .step-card.completed {
+            background-color: #f3f4f6;
+            border: 2px solid transparent;
+        }
+
+        .step-badge {
+            display: inline-block;
+            background-color: #96082b;
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .step-question {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ad2569;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-answer {
+            color: #1d1d1d;
+            font-style: italic;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 0.75rem 1rem;
+            border: 2px solid #96082b;
+            border-radius: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            resize: vertical;
+            margin-bottom: 1rem;
+        }
+
+        textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(150, 8, 43, 0.1);
+        }
+
+        .input-row {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .input-row input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 2px solid #96082b;
+            border-radius: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+
+        .input-row input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(150, 8, 43, 0.1);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #ecebec;
+            border-radius: 1rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #ad2569;
+            transition: width 0.3s ease;
+        }
+
+        .example-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .chip {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+            border-radius: 9999px;
+            border: 1px solid #96082b;
+            color: #1d1d1d;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chip:hover {
+            background-color: #f3f4f6;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            background: linear-gradient(135deg, #96082b 0%, #ad2569 100%);
+            color: white;
+            border: none;
+            border-radius: 2rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn:hover:not(:disabled) {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #b6b4af;
+            background: linear-gradient(135deg, #b6b4af 0%, #b6b4af 100%);
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Analysis Section */
+        .analysis-container {
+            max-width: 42rem;
+            margin: 3rem auto 2rem;
+        }
+
+        .analysis-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .analysis-header h2 {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #1d1d1d;
+            margin-bottom: 0.5rem;
+        }
+
+        .analysis-header p {
+            font-size: 1.125rem;
+            color: #1d1d1d;
+        }
+
+        .analysis-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .analysis-card.root-cause {
+            border: 2px solid #96082b;
+            background: rgba(150, 8, 43, 0.05);
+            border-left: 4px solid #96082b;
+        }
+
+        .analysis-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .analysis-title h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1d1d1d;
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .solution-item {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background-color: #ecebec;
+        }
+
+        .solution-item h4 {
+            font-weight: bold;
+            color: #1d1d1d;
+            margin-bottom: 0.5rem;
+        }
+
+        .solution-item p {
+            color: #1d1d1d;
+            font-size: 0.875rem;
+        }
+
+        .insights-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .insights-list li {
+            display: flex;
+            align-items: start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            color: #1d1d1d;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, rgba(219, 39, 119, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            border: 2px solid #ad2569;
+            margin-top: 2rem;
+        }
+
+        .cta-box h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1d1d1d;
+            margin-bottom: 0.75rem;
+        }
+
+        .cta-box p {
+            color: #1d1d1d;
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-box .highlight {
+            color: #96082b;
+            font-weight: bold;
+        }
+
+        .cta-box button {
+            margin-top: 1.5rem;
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
+            box-shadow: 0 4px 6px rgba(173, 37, 105, 0.3);
+        }
+
+        .message-box {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .message-box.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .message-box.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .loading-text {
+            color: #1d1d1d;
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Icons */
+        .icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .icon.sm {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.75rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .step-question {
+                font-size: 1.125rem;
+            }
+
+            .solutions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🎯 Portal da Clareza Digital | New You</h1>
+            <p>Responde a 5 perguntas simples e descobre a causa-raíz, soluções e insights personalizados para o teu negócio.</p>
+        </div>
+
+        <!-- Welcome Form -->
+        <div id="welcomeForm" class="welcome-card">
+            <h2>Bem-vindo ao Portal da Clareza Digital</h2>
+            <p>Para começar, precisamos de saber quem és</p>
+            
+            <form id="userInfoForm">
+                <div class="form-group">
+                    <label>Nome completo</label>
+                    <input type="text" id="userName" placeholder="O teu nome" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="userEmail" placeholder="o.teu.email@exemplo.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Instagram</label>
+                    <input type="text" id="userInstagram" placeholder="@o_teu_instagram">
+                </div>
+                
+                <button type="submit" class="btn btn-full">Começar a minha jornada</button>
+            </form>
+        </div>
+
+        <!-- Journey -->
+        <div id="journeyContainer" class="journey-container hidden">
+            <div class="timeline" id="timeline"></div>
+
+            <!-- Step 0: Problem Definition -->
+            <div class="step-container" data-step="0">
+                <div class="step-circle active" id="circle-0">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <div class="step-card active" id="card-0">
+                    <div class="analysis-title">
+                        <svg class="icon" fill="none" stroke="#96082b" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <h2 style="color: #1d1d1d; font-size: 1.25rem; font-weight: 600; margin: 0;">Define o teu desafio digital</h2>
+                    </div>
+                    
+                    <div id="problemInput">
+                        <textarea id="problemText" placeholder="Que desafio enfrentas na tua presença digital?" rows="2"></textarea>
+                        
+                        <div class="example-chips">
+                            <button class="chip" data-example="baixa-presenca">Baixa presença online</button>
+                            <button class="chip" data-example="falta-engagement">Falta de engagement</button>
+                            <button class="chip" data-example="conteudo-inconsistente">Inconsistência de conteúdo</button>
+                            <button class="chip" data-example="estrategia-pouco-clara">Estratégia pouco clara</button>
+                            <button class="chip" data-example="audiencia-estagnada">Audiência estagnada</button>
+                            <button class="chip" data-example="medo-exposicao">Medo da exposição</button>
+                            <button class="chip" data-example="audiencia-nao-qualificada">Público não qualificado</button>
+                            <button class="chip" data-example="dificuldade-vender">Dificuldade em vender</button>
+                        </div>
+                        
+                        <button class="btn btn-full" id="startJourneyBtn">Começar jornada</button>
+                    </div>
+                    
+                    <div id="problemDisplay" class="hidden">
+                        <p class="step-answer"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Steps 1-5: Why Questions -->
+            <div id="whySteps"></div>
+        </div>
+
+        <!-- Analysis Results -->
+        <div id="analysisSection" class="analysis-container hidden">
+            <div class="analysis-header">
+                <h2>Descoberta completa!</h2>
+                <p>Isto é o que encontrámos na raiz do teu desafio</p>
+            </div>
+
+            <!-- Root Cause -->
+            <div class="analysis-card root-cause">
+                <div class="analysis-title">
+                    <svg class="icon" fill="none" stroke="#96082b" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                    <h3>Causa raiz</h3>
+                </div>
+                <p id="rootCauseText" style="color: #1d1d1d; font-size: 1.125rem; line-height: 1.8;"></p>
+            </div>
+
+            <!-- Solutions -->
+            <div class="analysis-card">
+                <div class="analysis-title">
+                    <svg class="icon" fill="none" stroke="#ad2569" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                    </svg>
+                    <h3>Soluções</h3>
+                </div>
+                <div class="solutions-grid" id="solutionsGrid"></div>
+            </div>
+
+            <!-- Key Insights -->
+            <div class="analysis-card">
+                <div class="analysis-title">
+                    <h3>Insights chave</h3>
+                </div>
+                <ul class="insights-list" id="insightsList"></ul>
+            </div>
+
+            <!-- CTA -->
+            <div class="cta-box">
+                <h3>🚀 Pronta para Transformar Isto em Resultados Reais?</h3>
+                <p>Agora que descobriste a causa raiz do teu desafio...</p>
+                <p class="highlight">Vamos criar juntos o teu plano de ação personalizado</p>
+                <button class="btn" id="bookCallBtn">📞 Agendar Call Estratégica Gratuita (20 min)</button>
+                <div id="bookingMessage" class="message-box hidden"></div>
+                <p style="font-size: 0.875rem; margin-top: 1rem; color: #6b7280;">
+                    Entrarei em contacto contigo em breve para agendarmos a melhor altura para a tua call estratégica.
+                </p>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <button class="btn" id="startNewJourneyBtn">Começar nova jornada</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State
+        const state = {
+            userName: '',
+            userEmail: '',
+            userInstagram: '',
+            problem: '',
+            whys: ['', '', '', '', ''],
+            followUpQuestions: ['', '', '', '', ''],
+            currentStep: 0,
+            analysis: null
+        };
+
+        const examples = {
+            'baixa-presenca': 'A minha presença digital é muito limitada e perco oportunidades de negócio',
+            'falta-engagement': 'As minhas redes sociais não geram engagement apesar de publicar regularmente',
+            'conteudo-inconsistente': 'Não consigo manter consistência na criação de conteúdo para as minhas plataformas digitais',
+            'estrategia-pouco-clara': 'Não tenho uma estratégia clara para expandir a minha marca pessoal online',
+            'audiencia-estagnada': 'A minha audiência digital não cresce há meses apesar dos meus esforços',
+            'medo-exposicao': 'Tenho medo de me expor nas redes sociais e isso bloqueia o crescimento do meu negócio',
+            'audiencia-nao-qualificada': 'Atraio muitos seguidores mas são pessoas que não têm interesse real nos meus produtos ou serviços',
+            'dificuldade-vender': 'Tenho dificuldade em converter a minha audiência digital em clientes pagantes'
+        };
+
+        // User Info Form
+        document.getElementById('userInfoForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            state.userName = document.getElementById('userName').value.trim();
+            state.userEmail = document.getElementById('userEmail').value.trim();
+            state.userInstagram = document.getElementById('userInstagram').value.trim();
+            
+            // Save lead
+            try {
+                const leadData = {
+                    timestamp: new Date().toISOString(),
+                    name: state.userName,
+                    email: state.userEmail,
+                    instagram: state.userInstagram
+                };
+                const leads = JSON.parse(localStorage.getItem('portalLeads') || '[]');
+                leads.push(leadData);
+                localStorage.setItem('portalLeads', JSON.stringify(leads));
+            } catch (error) {
+                console.error('Error saving lead:', error);
+            }
+            
+            document.getElementById('welcomeForm').classList.add('hidden');
+            document.getElementById('journeyContainer').classList.remove('hidden');
+        });
+
+        // Example chips
+        document.querySelectorAll('.chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                const example = chip.dataset.example;
+                document.getElementById('problemText').value = examples[example];
+            });
+        });
+
+        // Start Journey
+        document.getElementById('startJourneyBtn').addEventListener('click', async () => {
+            const problemText = document.getElementById('problemText').value.trim();
+            if (!problemText) return;
+            
+            state.problem = problemText;
+            
+            // Update UI
+            document.getElementById('problemInput').classList.add('hidden');
+            document.getElementById('problemDisplay').classList.remove('hidden');
+            document.getElementById('problemDisplay').querySelector('.step-answer').textContent = problemText;
+            
+            updateStepUI(0, 'completed');
+            
+            // Generate first question and create steps
+            await generateFollowUpQuestion(1);
+            createWhySteps();
+            
+            state.currentStep = 1;
+            updateStepUI(1, 'active');
+            scrollToStep(1);
+        });
+
+        // Create Why Steps
+        function createWhySteps() {
+            const container = document.getElementById('whySteps');
+            container.innerHTML = '';
+            
+            for (let i = 1; i <= 5; i++) {
+                const stepHTML = `
+                    <div class="step-container" data-step="${i}">
+                        <div class="step-circle inactive" id="circle-${i}">${i}</div>
+                        <div class="step-card" id="card-${i}">
+                            <span class="step-badge">Porquê #${i}</span>
+                            
+                            <div id="question-${i}">
+                                <p class="loading-text">A pensar...</p>
+                            </div>
+                            
+                            <div id="input-${i}" class="hidden">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: ${(i/5)*100}%"></div>
+                                </div>
+                                <div class="input-row">
+                                    <input type="text" id="why-${i}" placeholder="Insere a tua resposta...">
+                                    <button class="btn" onclick="handleWhySubmit(${i})">${i === 5 ? 'Analisar' : 'Seguinte'} →</button>
+                                </div>
+                            </div>
+                            
+                            <div id="answer-${i}" class="hidden">
+                                <p class="step-answer"></p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += stepHTML;
+            }
+        }
+
+        // Generate Follow-up Question
+        async function generateFollowUpQuestion(stepIndex) {
+            try {
+                let prompt;
+                if (stepIndex === 1) {
+                    prompt = `RESPONDE APENAS EM PORTUGUÊS DE PORTUGAL. Estás a ajudar alguém a analisar um desafio de presença digital usando a técnica dos 5 Porquês.
+
+Problema original: "${state.problem}"
+
+Cria uma pergunta natural que comece com "Porquê" e pergunte porque é que este problema ocorre. Responde APENAS com a pergunta em português.`;
+                } else {
+                    const previousAnswers = state.whys.slice(0, stepIndex - 1).filter(a => a.trim());
+                    const context = previousAnswers.map((a, idx) => `Resposta ${idx + 1}: "${a}"`).join('\n');
+                    
+                    prompt = `RESPONDE APENAS EM PORTUGUÊS DE PORTUGAL. Estás a ajudar alguém a analisar um desafio de presença digital.
+
+Problema: "${state.problem}"
+${context}
+
+Cria uma pergunta natural que comece com "Porquê" e pergunte porque é que a última resposta ocorre. Responde APENAS com a pergunta.`;
+                }
+
+                const response = await fetch("/api/claude", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        model: "claude-sonnet-4-20250514",
+                        max_tokens: 1000,
+                        messages: [{ role: "user", content: prompt }]
+                    })
+                });
+
+                const data = await response.json();
+                const questionText = data.content[0].text.trim();
+                
+                state.followUpQuestions[stepIndex - 1] = questionText;
+                
+                // Update UI
+                const questionDiv = document.getElementById(`question-${stepIndex}`);
+                questionDiv.innerHTML = `<p class="step-question">${questionText}</p>`;
+                document.getElementById(`input-${stepIndex}`).classList.remove('hidden');
+                
+            } catch (error) {
+                console.error('Error generating question:', error);
+                const questionDiv = document.getElementById(`question-${stepIndex}`);
+                questionDiv.innerHTML = `<p class="step-question">Porquê é que isto acontece?</p>`;
+                document.getElementById(`input-${stepIndex}`).classList.remove('hidden');
+            }
+        }
+
+        // Handle Why Submit
+        async function handleWhySubmit(stepIndex) {
+            const input = document.getElementById(`why-${stepIndex}`);
+            const answer = input.value.trim();
+            
+            if (!answer) return;
+            
+            state.whys[stepIndex - 1] = answer;
+            
+            // Update UI
+            document.getElementById(`input-${stepIndex}`).classList.add('hidden');
+            document.getElementById(`answer-${stepIndex}`).classList.remove('hidden');
+            document.getElementById(`answer-${stepIndex}`).querySelector('.step-answer').textContent = answer;
+            
+            updateStepUI(stepIndex, 'completed');
+            
+            if (stepIndex < 5) {
+                state.currentStep = stepIndex + 1;
+                updateStepUI(stepIndex + 1, 'active');
+                await generateFollowUpQuestion(stepIndex + 1);
+                scrollToStep(stepIndex + 1);
+            } else {
+                // Analyze
+                await analyzeResponses();
+            }
+        }
+
+        // Analyze Responses
+        async function analyzeResponses() {
+            try {
+                const prompt = `RESPONDE APENAS EM PORTUGUÊS DE PORTUGAL. Analisa esta sessão dos 5 Porquês sobre presença digital:
+
+Problema: ${state.problem}
+Porquê 1: ${state.whys[0]}
+Porquê 2: ${state.whys[1]}
+Porquê 3: ${state.whys[2]}
+Porquê 4: ${state.whys[3]}
+Porquê 5: ${state.whys[4]}
+
+Fornece em formato JSON:
+{
+  "rootCause": "causa raiz identificada",
+  "solutions": [
+    {"title": "Título da Solução 1", "description": "Descrição detalhada da solução 1"},
+    {"title": "Título da Solução 2", "description": "Descrição detalhada da solução 2"},
+    {"title": "Título da Solução 3", "description": "Descrição detalhada da solução 3"}
+  ],
+  "insights": ["insight prático 1", "insight prático 2", "insight prático 3"]
+}
+
+Responde APENAS com o JSON, sem texto adicional.`;
+
+                const response = await fetch("/api/claude", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        model: "claude-sonnet-4-20250514",
+                        max_tokens: 2000,
+                        messages: [{ role: "user", content: prompt }]
+                    })
+                });
+
+                const data = await response.json();
+                const responseText = data.content[0].text.trim();
+                const cleanText = responseText.replace(/```json|```/g, "").trim();
+                const analysis = JSON.parse(cleanText);
+                
+                state.analysis = analysis;
+                displayAnalysis(analysis);
+                
+            } catch (error) {
+                console.error('Error analyzing:', error);
+                state.analysis = {
+                    rootCause: "Não foi possível gerar a análise. Por favor, tenta novamente.",
+                    solutions: [],
+                    insights: []
+                };
+                displayAnalysis(state.analysis);
+            }
+        }
+
+        // Display Analysis
+        function displayAnalysis(analysis) {
+            document.getElementById('rootCauseText').textContent = analysis.rootCause;
+            
+            // Solutions
+            const solutionsGrid = document.getElementById('solutionsGrid');
+            solutionsGrid.innerHTML = analysis.solutions.map(sol => `
+                <div class="solution-item">
+                    <h4>${sol.title}</h4>
+                    <p>${sol.description}</p>
+                </div>
+            `).join('');
+            
+            // Insights
+            const insightsList = document.getElementById('insightsList');
+            insightsList.innerHTML = analysis.insights.map(insight => `
+                <li>
+                    <svg class="icon sm" fill="none" stroke="#ad2569" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span>${insight}</span>
+                </li>
+            `).join('');
+            
+            document.getElementById('journeyContainer').classList.add('hidden');
+            document.getElementById('analysisSection').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Book Call
+        document.getElementById('bookCallBtn').addEventListener('click', async () => {
+            try {
+                const bookingData = {
+                    timestamp: new Date().toISOString(),
+                    name: state.userName,
+                    email: state.userEmail,
+                    instagram: state.userInstagram,
+                    problem: state.problem,
+                    whys: state.whys,
+                    analysis: state.analysis
+                };
+                
+                const bookings = JSON.parse(localStorage.getItem('portalBookings') || '[]');
+                bookings.push(bookingData);
+                localStorage.setItem('portalBookings', JSON.stringify(bookings));
+                
+                const msgBox = document.getElementById('bookingMessage');
+                msgBox.textContent = '✅ Pedido enviado! Entrarei em contacto em breve.';
+                msgBox.className = 'message-box success';
+                msgBox.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    msgBox.classList.add('hidden');
+                }, 5000);
+                
+            } catch (error) {
+                console.error('Error booking:', error);
+                const msgBox = document.getElementById('bookingMessage');
+                msgBox.textContent = '❌ Erro ao enviar pedido. Contacta-me diretamente.';
+                msgBox.className = 'message-box error';
+                msgBox.classList.remove('hidden');
+            }
+        });
+
+        // Start New Journey
+        document.getElementById('startNewJourneyBtn').addEventListener('click', () => {
+            location.reload();
+        });
+
+        // UI Helpers
+        function updateStepUI(step, status) {
+            const circle = document.getElementById(`circle-${step}`);
+            const card = document.getElementById(`card-${step}`);
+            
+            circle.className = `step-circle ${status}`;
+            if (status === 'completed') {
+                circle.innerHTML = `<svg class="icon sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>`;
+            } else if (status === 'inactive') {
+                circle.textContent = step;
+            }
+            
+            if (card) {
+                card.className = `step-card ${status}`;
+            }
+        }
+
+        function scrollToStep(step) {
+            setTimeout(() => {
+                const element = document.querySelector(`[data-step="${step}"]`);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 100);
+        }
+    </script>
+</body>
+</html>
