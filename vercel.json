@@ -1,22 +1,6 @@
 {
+  "cleanUrls": true,
   "rewrites": [
-    {
-      "source": "/admin",
-      "destination": "/private/index.html"
-    },
-    {
-      "source": "/admin/",
-      "destination": "/private/index.html"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/private/(.*)",
-      "dest": "/private/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/public/$1"
-    }
+    { "source": "/admin", "destination": "/private/index.html" }
   ]
 }
