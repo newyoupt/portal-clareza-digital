@@ -692,12 +692,11 @@
             
             updateStepUI(0, 'completed');
             
-            // Generate first question and create steps
-            await generateFollowUpQuestion(1);
+            // Create steps FIRST, then generate question
             createWhySteps();
-            
             state.currentStep = 1;
             updateStepUI(1, 'active');
+            await generateFollowUpQuestion(1);
             scrollToStep(1);
         });
 
